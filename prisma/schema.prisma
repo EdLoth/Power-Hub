@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Administrator {
+  id          String     @id @default(uuid())
+  api_token   String
+  name        String
+  email       String     @unique
+  password    String
+  role        String
+  cpf         String?    @unique
+  cnpj        String?    @unique
+  dateOfBirth DateTime?
+}
+
+model User {
+  id         String     @id @default(uuid())
+  api_token  String
+  password   String
+  fullName   String
+  email      String     @unique
+  phone      String
+  isWhatsapp Boolean
+  cep        String?
+  address    String?
+  number     String?
+  complement String?
+  theme      String
+  cpf        String?    @unique
+  cnpj       String?    @unique
+}
+
+model Produto {
+  id                String      @id @default(uuid())
+  code              String      @unique
+  name              String
+  description       String
+  stock             Int
+  supplier_id       String?
+  brand             Marca?      @relation(fields: [brandId], references: [id])
+  brandId           String?
+  price             Float
+  categories        Categoria[] // Relacionamento de muitos-para-muitos com Categoria
+  format            String?
+  expirationDate    DateTime?
+  freeShipping      Boolean
+  netWeight         Float?
+  grossWeight       Float?
+  width             Float?
+  height            Float?
+  depth             Float?
+  volumes           Int?
+  itemsPerBox       Int?
+  unitOfMeasurement String?
+  situation         Boolean
+  image             String?
+}
+
+model Categoria {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  produtos Produto[] // Relacionamento de muitos-para-muitos com Produto
+}
+
+model Marca {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  produtos Produto[] // Relacionamento de um-para-muitos com Produto
+}
+
+// PEDIDOS
+
+model Pedido {
+  id                  Int              @id @default(autoincrement())
+  // fornecedor          Fornecedor       @relation(fields: [fornecedorId], references: [id])
+  // fornecedorId        Int
+  
+  numero              Int
+  data                DateTime
+  dataPrevista        DateTime
+  totalProdutos       Float
+  total               Float
+ 
+  ordemCompra         String
+  observacoes         String
+  observacoesInternas String
+ 
+}
