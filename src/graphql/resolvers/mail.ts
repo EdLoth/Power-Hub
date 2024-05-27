@@ -6,9 +6,9 @@ import {
 } from "type-graphql";
 
 
-import {MailServices} from '../services/'
-import { MailModel } from "../models/mail";
-import { MailInput } from "../inputs/mail";
+import { MailServices } from '../services'
+import { MailModel } from "../models";
+import { MailInput } from "../inputs";
 
 @Resolver()
 export class MailQueue {
@@ -18,7 +18,9 @@ export class MailQueue {
   }
 
   @Mutation(() => MailModel)
-  async SetMailQueue(@Arg("data") data: MailInput) {
+  async SetMailQueue(
+    @Arg("data", () => MailInput) data: MailInput
+  ) {
     delete data.data_cadastro;
     delete data.data_envio;
     delete data.situacao_envio;
@@ -28,7 +30,9 @@ export class MailQueue {
   }
 
   @Mutation(() => MailModel)
-  async PutMailQueue(@Arg("id") id: number) {
+  async PutMailQueue(
+    @Arg("id", () => Number) id: number
+  ) {
     return await MailServices.update(id);
   }
 }

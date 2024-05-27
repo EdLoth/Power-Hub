@@ -2,57 +2,57 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class UserInput {
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   id: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   password: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   fullName: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   email: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   phone: string;
 
-  @Field({ nullable: true })
+  @Field(() => Boolean, { nullable: true })
   isWhatsapp?: boolean;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   api_token?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   theme?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   cep?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   address?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   number?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   complement?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   cpf?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   cnpj?: string;
 
-  @Field()
+  @Field(() => Boolean, { nullable: true })
   situacao: boolean;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   created_at?: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   deleted_at?: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   updated_at?: Date;
 }

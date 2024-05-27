@@ -1,7 +1,7 @@
 import { prisma } from "src/utils";
 import bcryptjs from "bcryptjs";
 import { UserInput } from "../inputs/user";
-import { Pagination } from "../inputs/pagination";
+import { Pagination } from "../inputs";
 
 
 class UserService {
@@ -26,7 +26,6 @@ class UserService {
       quantidade = !pagination.quantidade ? 10 : pagination.quantidade;
     }
 
-
     const users = await prisma.user.findMany({
       skip: pagina * quantidade || 0,
       take: quantidade || 10,
@@ -34,8 +33,6 @@ class UserService {
         id: "desc",
       },
     });
-
-
 
     return users;
   }

@@ -2,45 +2,45 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class AdministratorInput {
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   id: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   api_token?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   name: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   email: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   password: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   role: string;
 
-  @Field({ nullable: true })
+  @Field(() => Boolean, { nullable: true })
   situacao: boolean;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   phone: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   cpf?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   cnpj?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   dateOfBirth?: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   created_at?: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   deleted_at?: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Date, { nullable: true })
   updated_at?: Date;
 }

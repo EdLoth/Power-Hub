@@ -1,30 +1,32 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import bcryptjs from "bcryptjs";
 import { UserService } from "../services";
-import { UserInput } from "../inputs/user";
-import { UserModel } from "../models/user";
-import { Pagination } from "../inputs/pagination";
+import { UserInput } from "../inputs";
+import { UserModel } from "../models";
+import { Pagination } from "../inputs";
 // import { MailQueue } from "./mail";
 
 @Resolver()
 export class UserResolver {
-  @Query(() => UserModel)
+  @Query(() => [UserModel])
   async GetUsuarios(
-    @Arg("pagination", { nullable: true }) pagination: Pagination,
+    @Arg("pagination", () => Pagination, { nullable: true }) pagination: Pagination
   ) {
     const users = await UserService.findManyUsers(pagination);
     return users;
   }
 
   @Query(() => UserModel)
-  async GetUsuario(@Arg("id") id: string) {
+  async GetUsuarioByID(
+    @Arg("id", () => String) id: string
+  ) {
     const user = await UserService.findUserByID(id);
-
     return user;
   }
 
-  @Mutation(() => UserModel)
-  async SetUsuario(@Arg("usuario") usuario: UserInput) {
+  async SetUsuario(
+    @Arg("usuario", () => UserInput) usuario: UserInput
+  ) {
     const userExists = await UserService.emailValid(usuario.email);
 
     if (userExists.emailValid !== false) {
@@ -69,7 +71,10 @@ export class UserResolver {
   }
 
   @Mutation(() => UserModel)
-  async PutUsuario(@Arg("id") id: string, @Arg("usuario") usuario: UserInput) {
+  async PutUsuario(
+    @Arg("id", () => String) id: string,
+    @Arg("usuario", () => UserInput) usuario: UserInput
+  ) {
 
     const user = await UserService.findUserByID(id);
 
@@ -91,7 +96,7 @@ export class UserResolver {
 
   @Mutation(() => UserModel)
   async DeleteUsuario(
-    @Arg("id", { nullable: true }) id: string
+    @Arg("id", () => String) id: string
   ) {
     const user = await UserService.findUserByID(id);
 

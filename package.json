@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "studio": "prisma studio",
     "build": "tsup src --d build",
     "start": "node build/server.js",
     "sync": "prisma migrate dev",

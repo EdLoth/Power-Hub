@@ -1,14 +1,14 @@
 import { Arg, Mutation, Resolver } from "type-graphql";
-import { AdministratorInput } from "../inputs/administrator";
-import { AdministratorModel } from "../models/administrator";
+import { AdministratorInput } from "../inputs";
+import { AdministratorModel } from "../models";
 import { AdministratorService } from "../services";
 import bcryptjs from "bcryptjs";
 
 @Resolver()
-export class UserResolver {
+export class AdministratorResolver {
   @Mutation(() => AdministratorModel)
   async SetUsuarioAdmin(
-    @Arg("administador") administador: AdministratorInput,
+    @Arg("administador", () => AdministratorInput) administador: AdministratorInput
   ) {
  
     const adminExists = await AdministratorService.emailValid(administador.email);
@@ -18,19 +18,10 @@ export class UserResolver {
     }
     const pass = Math.random().toString(36).slice(-10);
     const pwd = await bcryptjs.hash(pass, 10);
-    const uuid = v4();
 
-    const save = await AdministratorService.create(usuario, pwd, uuid);
+    const save = await AdministratorService.createAdmin(administador, pwd);
 
     if (save) {
-      const empresa = await EmpresaUsuarioServices.create({
-        id_empresa: context.user.empresa_usuario[0].id_empresa,
-        id_user: save.id,
-        edicao: usuario.edicao,
-        exclusao: usuario.exclusao,
-        visualizacao: usuario.visualizacao,
-      });
-
 
       return save;
     } else {

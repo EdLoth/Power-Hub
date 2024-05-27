@@ -2,27 +2,27 @@ import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class MailInput {
-  @Field({ nullable: true })
+  @Field(() => Number, { nullable: true })
   id: number; 
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   assunto: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   corpo: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   email: string;
 
-  @Field({ nullable: true })
-  data_cadastro: string;
+  @Field(() => Date, { nullable: true })
+  data_cadastro: Date;
 
-  @Field({ nullable: true })
-  data_envio: string;
+  @Field(() => Date, { nullable: true })
+  data_envio: Date;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   situacao_envio: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   origem: string;
 }
