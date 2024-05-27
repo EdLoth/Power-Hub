@@ -1,4 +1,4 @@
-import { Field, InputType, ID } from "type-graphql";
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class AdministratorInput {
@@ -6,7 +6,7 @@ export class AdministratorInput {
   id: string;
 
   @Field({ nullable: true })
-  api_token: string;
+  api_token?: string;
 
   @Field({ nullable: true })
   name: string;
@@ -21,13 +21,26 @@ export class AdministratorInput {
   role: string;
 
   @Field({ nullable: true })
-  cpf: string;
+  situacao: boolean;
 
   @Field({ nullable: true })
-  cnpj: string;
+  phone: string;
 
   @Field({ nullable: true })
-  dateOfBirth: Date;
+  cpf?: string;
+
+  @Field({ nullable: true })
+  cnpj?: string;
+
+  @Field({ nullable: true })
+  dateOfBirth?: Date;
+
+  @Field({ nullable: true })
+  created_at?: Date;
+
+  @Field({ nullable: true })
+  deleted_at?: Date;
+
+  @Field({ nullable: true })
+  updated_at?: Date;
 }
-
-

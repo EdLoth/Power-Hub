@@ -1,32 +1,46 @@
-import { Field, ObjectType } from "type-graphql";
-
+import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
-export class AdministratorInput {
-  @Field({ nullable: true })
+export class AdministratorModel {
+  @Field()
   id: string;
 
-  @Field({ nullable: true })
+  @Field()
   api_token: string;
 
-  @Field({ nullable: true })
+  @Field()
   name: string;
 
-  @Field({ nullable: true })
+  @Field()
   email: string;
 
-  @Field({ nullable: true })
+  @Field()
   password: string;
 
-  @Field({ nullable: true })
+  @Field()
   role: string;
 
-  @Field({ nullable: true })
-  cpf: string;
+  @Field()
+  situacao: boolean;
+
+  @Field()
+  phone: string;
 
   @Field({ nullable: true })
-  cnpj: string;
+  cpf?: string;
 
   @Field({ nullable: true })
-  dateOfBirth: Date;
+  cnpj?: string;
+
+  @Field({ nullable: true })
+  dateOfBirth?: Date;
+
+  @Field()
+  created_at: Date;
+
+  @Field({ nullable: true })
+  deleted_at?: Date;
+
+  @Field()
+  updated_at: Date;
 }

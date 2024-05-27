@@ -1,46 +1,49 @@
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
-export class UserInput {
+export class UserModel {
   @Field({ nullable: true })
-  id: string;
+  id?: string;
 
   @Field({ nullable: true })
-  api_token: string;
+  api_token?: string;
 
   @Field({ nullable: true })
-  password: string;
+  password?: string;
 
   @Field({ nullable: true })
-  fullName: string;
+  fullName?: string;
 
   @Field({ nullable: true })
-  email: string;
+  email?: string;
 
   @Field({ nullable: true })
-  phone: string;
+  phone?: string;
 
   @Field({ nullable: true })
-  isWhatsapp: boolean;
+  isWhatsapp?: boolean;
 
   @Field({ nullable: true })
-  cep: string;
+  cep?: string;
 
   @Field({ nullable: true })
-  address: string;
+  address?: string;
 
   @Field({ nullable: true })
-  number: string;
+  number?: string;
 
   @Field({ nullable: true })
-  complement: string;
+  complement?: string;
 
   @Field({ nullable: true })
-  theme: string;
+  theme?: string;
 
   @Field({ nullable: true })
-  cpf: string;
+  cpf?: string;
 
   @Field({ nullable: true })
-  cnpj: string;
+  cnpj?: string;
+
+  @Field({ nullable: true, defaultValue: true })
+  situacao?: boolean;
 }

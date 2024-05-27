@@ -5,42 +5,54 @@ export class UserInput {
   @Field({ nullable: true })
   id: string;
 
-  @Field({ nullable: true })
-  api_token: string;
-
-  @Field({ nullable: true })
+  @Field()
   password: string;
 
-  @Field({ nullable: true })
+  @Field()
   fullName: string;
 
-  @Field({ nullable: true })
+  @Field()
   email: string;
 
-  @Field({ nullable: true })
+  @Field()
   phone: string;
 
   @Field({ nullable: true })
-  isWhatsapp: boolean;
+  isWhatsapp?: boolean;
 
   @Field({ nullable: true })
-  cep: string;
+  api_token?: string;
 
   @Field({ nullable: true })
-  address: string;
+  theme?: string;
 
   @Field({ nullable: true })
-  number: string;
+  cep?: string;
 
   @Field({ nullable: true })
-  complement: string;
+  address?: string;
 
   @Field({ nullable: true })
-  theme: string;
+  number?: string;
 
   @Field({ nullable: true })
-  cpf: string;
+  complement?: string;
 
   @Field({ nullable: true })
-  cnpj: string;
+  cpf?: string;
+
+  @Field({ nullable: true })
+  cnpj?: string;
+
+  @Field()
+  situacao: boolean;
+
+  @Field({ nullable: true })
+  created_at?: Date;
+
+  @Field({ nullable: true })
+  deleted_at?: Date;
+
+  @Field({ nullable: true })
+  updated_at?: Date;
 }
