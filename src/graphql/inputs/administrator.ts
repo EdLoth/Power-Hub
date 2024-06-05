@@ -3,28 +3,31 @@ import { Field, InputType } from "type-graphql";
 @InputType()
 export class AdministratorInput {
   @Field(() => String, { nullable: true })
-  id: string;
+  id?: string;
 
   @Field(() => String, { nullable: true })
   api_token?: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   name: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   email: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   password: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   role: string;
 
-  @Field(() => Boolean, { nullable: true })
+  @Field(() => Boolean)
   situacao: boolean;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   phone: string;
+
+  @Field(() => Boolean, { nullable: true }) 
+  isWhatsapp?: boolean;
 
   @Field(() => String, { nullable: true })
   cpf?: string;

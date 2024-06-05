@@ -2,7 +2,7 @@ import { prisma } from "src/utils";
 import bcryptjs from "bcryptjs";
 import { UserInput } from "../inputs/user";
 import { Pagination } from "../inputs";
-
+import { TypePerson } from "../models";
 
 class UserService {
   async emailValid(email: string) {
@@ -45,34 +45,43 @@ class UserService {
   }
 
   async create(userInput: UserInput, password: string) {
-    const { fullName, email, phone, cpf, cnpj, isWhatsapp } = userInput;
-
+    const { name, email, phone, cpf, cnpj, isWhatsapp, cep, address, number, complement, theme, dateOfBirth, type_person, role } = userInput;
+  
     const hashedPassword = await bcryptjs.hash(password, 10);
-
+  
     const user = await prisma.user.create({
       data: {
         password: hashedPassword,
-        fullName,
+        name,
         email,
         phone,
         cpf,
         cnpj,
-        isWhatsapp,
+        dateOfBirth,
         situacao: true,
+        isWhatsapp,
+        cep,
+        address,
+        number,
+        complement,
+        theme,
+        role,
+        created_at: new Date(),
+        type_person, // Agora o tipo de pessoa é recebido como parte do userInput
       },
     });
     return user;
   }
+  
 
   async update(userId: string, userInput: UserInput) {
-
-    const { fullName, email, phone, cpf, cnpj, isWhatsapp, situacao, address, cep, complement, number, theme } = userInput;
+    const { name, email, phone, cpf, cnpj, isWhatsapp, situacao, address, cep, complement, number, theme } = userInput;
     const user = await prisma.user.update({
       where: {
         id: userId,
       },
       data: {
-        fullName,
+        name,
         email,
         phone,
         cpf,
@@ -81,10 +90,10 @@ class UserService {
         situacao,
         address,
         cep,
-        updated_at: new Date(),
         complement,
         number,
-        theme
+        theme,
+        updated_at: new Date(),
       },
     });
 

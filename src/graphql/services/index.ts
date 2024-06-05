@@ -6,4 +6,9 @@ export { default as BrandService } from "./brand";
 export { default as  CategoryService} from "./category";
 
 
+export { default as TrackLogServices } from "./trackLog";
+export { default as LogAcessosRecursosServices } from "./log_acessos";
+
+
+
 

@@ -7,42 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Administrator {
-  id          String    @id @default(uuid())
-  api_token   String?
-  name        String
-  email       String    @unique
-  password    String
-  role        String
-  phone       String
-  cpf         String?   @unique
-  cnpj        String?   @unique
-  dateOfBirth DateTime?
-  situacao    Boolean
-  created_at  DateTime  @default(now())
-  deleted_at  DateTime?
-  updated_at  DateTime  @updatedAt
+enum TypePerson {
+  ADMIN
+  USER
+  EMPLOYEE
+  MANAGER
 }
 
 model User {
-  id         String    @id @default(uuid())
-  api_token  String?
-  password   String
-  fullName   String
-  email      String    @unique
-  phone      String
-  isWhatsapp Boolean
-  cep        String?
-  address    String?
-  number     String?
-  complement String?
-  theme      String?
-  cpf        String?   @unique
-  cnpj       String?   @unique
-  situacao   Boolean
-  created_at DateTime  @default(now())
-  deleted_at DateTime?
-  updated_at DateTime  @updatedAt
+  id          String      @id @default(uuid())
+  api_token   String?
+  name        String
+  email       String      @unique
+  password    String
+  role        String
+  phone       String
+  cpf         String?     @unique
+  cnpj        String?     @unique
+  dateOfBirth DateTime?
+  situacao    Boolean
+  isWhatsapp  Boolean // Campo isWhatsapp adicionado
+  cep         String?
+  address     String?
+  number      String?
+  complement  String?
+  theme       String?
+  created_at  DateTime    @default(now())
+  deleted_at  DateTime?
+  updated_at  DateTime    @updatedAt
+  type_person TypePerson  @default(USER)
+  avaliacoes  Avaliacao[] // Relação com as avaliações feitas pelo usuário
 }
 
 model Produto {
@@ -69,6 +63,18 @@ model Produto {
   image             String?
   brand             Marca?      @relation(fields: [brandId], references: [id])
   categories        Categoria[] @relation("CategoriaToProduto")
+  avaliacoes        Avaliacao[] // Relação com as avaliações do produto
+}
+
+model Avaliacao {
+  id         String   @id @default(uuid())
+  nota       Int // Nota atribuída à avaliação
+  comentario String? // Comentário opcional
+  produto    Produto  @relation(fields: [produtoId], references: [id])
+  produtoId  String // Referência ao ID do produto avaliado
+  usuario    User     @relation(fields: [usuarioId], references: [id])
+  usuarioId  String // Referência ao ID do usuário que fez a avaliação
+  createdAt  DateTime @default(now())
 }
 
 model Categoria {
@@ -104,4 +110,16 @@ model Mail {
   data_envio     DateTime?
   situacao_envio Int?
   origem         String?   @db.VarChar(100)
+}
+
+model track_log {
+  id          Int       @id @default(autoincrement())
+  id_modulo   Int?
+  resolver    String?   @db.VarChar(255)
+  action      String?   @db.VarChar(150)
+  data_acesso DateTime?
+  param       String?   @db.VarChar(255)
+  hash_acesso String?   @db.VarChar(500)
+  user_id     Int?
+  ip          String?   @db.VarChar(45) 
 }

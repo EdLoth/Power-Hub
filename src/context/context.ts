@@ -4,46 +4,26 @@ export interface Context {
   req: Request;
   res: Response;
   user: {
-    remember_token: any;
-    id: number;
-    api_token?: string;
-    corporate?: {
-      hasCorporate: boolean;
-      employees?: any[];
-      employeesEdit?: any[];
-      employeesDelete?: any[];
-    };
-    profile?: {
-      id: number;
-      profile: string;
-    };
-
-    api_token_api_gis?: string;
-    produtos?: any[];
-    empresa_usuario: any;
-    user_produto: any[];
-    empresa?: {
-      id: number;
-      nome: string;
-      user_logo_pic: string;
-      cor_fonte: string;
-      cor_background: string;
-      cep: string;
-      bairro: string;
-      cnpj: string;
-      complemento: string;
-      email: string;
-      endereco: string;
-      estado: string;
-      nome_fantasia: string;
-      numero: string;
-      telefone: string;
-    };
-  };
-  corporate: {
-    hasCorporate: boolean;
-    employees: number[];
-    employeesEdit?: number[];
-    employeesDelete?: number[];
+    id: string;
+    api_token?: string | null;
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+    phone: string;
+    cpf?: string | null;
+    cnpj?: string | null;
+    dateOfBirth?: Date | null;
+    situacao: boolean;
+    isWhatsapp: boolean;
+    cep?: string | null;
+    address?: string | null;
+    number?: string | null;
+    complement?: string | null;
+    theme?: string | null;
+    created_at: Date;
+    deleted_at?: Date | null;
+    updated_at: Date;
+    type_person: "USER" | "ADMIN" | "EMPLOYEE" | "MANAGER";
   };
 }

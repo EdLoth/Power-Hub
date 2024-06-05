@@ -1,21 +1,22 @@
 import { Field, InputType } from "type-graphql";
+import { TypePerson } from "../models"; // Importe o enum TypePerson
 
 @InputType()
 export class UserInput {
   @Field(() => String, { nullable: true })
-  id: string;
+  id?: string;
 
   @Field(() => String, { nullable: true })
-  password: string;
+  password?: string;
 
   @Field(() => String, { nullable: true })
-  fullName: string;
+  name?: string;
 
   @Field(() => String, { nullable: true })
-  email: string;
+  email?: string;
 
   @Field(() => String, { nullable: true })
-  phone: string;
+  phone?: string;
 
   @Field(() => Boolean, { nullable: true })
   isWhatsapp?: boolean;
@@ -45,7 +46,10 @@ export class UserInput {
   cnpj?: string;
 
   @Field(() => Boolean, { nullable: true })
-  situacao: boolean;
+  situacao?: boolean;
+
+  @Field(() => Date, { nullable: true })
+  dateOfBirth?: Date;
 
   @Field(() => Date, { nullable: true })
   created_at?: Date;
@@ -55,4 +59,10 @@ export class UserInput {
 
   @Field(() => Date, { nullable: true })
   updated_at?: Date;
+
+  @Field(() => String, { nullable: true })
+  role?: string;
+
+  @Field(() => TypePerson, { nullable: true }) 
+  type_person?: TypePerson;
 }

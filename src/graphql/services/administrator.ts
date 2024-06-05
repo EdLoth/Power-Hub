@@ -1,12 +1,12 @@
 import bcryptjs from "bcryptjs";
 import { prisma } from "src/utils";
+import { TypePerson } from "../models"; // Certifique-se de importar os modelos corretamente
 import { AdministratorInput } from "../inputs/administrator";
-
 
 class AdministratorService {
   async emailValid(email: string) {
     const user = await prisma.user.findFirst({
-      where: { email, situacao: true },
+      where: { email, situacao: true, type_person: TypePerson.ADMIN }, // Adicione o filtro para tipo de pessoa ADMIN
     });
 
     if (!user) {
@@ -19,26 +19,23 @@ class AdministratorService {
   async passwordValid(password: string, hashPassword: string) {
     const isValid = await bcryptjs.compare(password, hashPassword);
 
-    if (!isValid) {
-      return false;
-    } else {
-      return true;
-    }
+    return isValid; // A comparação já retorna true ou false, então não é necessário fazer outro if
   }
 
   async findAdminByID(id: string) {
     const user = await prisma.user.findFirst({
-      where: { id, situacao: true }
+      where: { id, situacao: true, type_person: TypePerson.ADMIN }, // Adicione o filtro para tipo de pessoa ADMIN
     });
     return user;
   }
 
   async createAdmin(adminInput: AdministratorInput, password: string) {
-    const { email,cpf, cnpj, name, dateOfBirth, role, phone  } = adminInput;
+    const { email, cpf, cnpj, name, dateOfBirth, role, phone, isWhatsapp } = adminInput;
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    const admin = await prisma.administrator.create({
+    // Adicione isWhatsapp ao objeto de dados, se disponível
+    const admin = await prisma.user.create({
       data: {
         password: hashedPassword,
         name,
@@ -49,17 +46,19 @@ class AdministratorService {
         dateOfBirth,
         role,
         situacao: true,
+        type_person: TypePerson.ADMIN,
+        isWhatsapp, // Inclua isWhatsapp se estiver disponível
       },
     });
     return admin;
   }
 
   async updateAdmin(adminId: string, adminInput: AdministratorInput) {
-
     const { name, email, phone, cpf, cnpj, situacao, role } = adminInput;
-    const admin = await prisma.administrator.update({
+    const admin = await prisma.user.update({
       where: {
         id: adminId,
+        type_person: TypePerson.ADMIN, // Adicione a condição para garantir que seja um administrador
       },
       data: {
         name,
@@ -77,11 +76,12 @@ class AdministratorService {
   }
 
   async deleteAdmin(id: string) {
-    const admin = await prisma.administrator.findFirst({
+    const admin = await prisma.user.findFirst({
       where: {
         id,
-      }
-    })
+        type_person: TypePerson.ADMIN, // Adicione a condição para garantir que seja um administrador
+      },
+    });
 
     const deleted = await prisma.user.update({
       where: { id },
@@ -94,9 +94,6 @@ class AdministratorService {
 
     return deleted;
   }
-
-
-
 }
 
 export default new AdministratorService();
